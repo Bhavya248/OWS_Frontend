@@ -4,10 +4,11 @@ from flask import (
     abort,
     jsonify,
 )
-
+from flask_cors import CORS
 import os
 
 app = Flask(__name__)
+CORS(app)
 
 app.secret_key = os.urandom(24)
 
@@ -51,23 +52,40 @@ def get_user_from_did():
     return jsonify({"found": False, "error": "Invalid DID"})
 
 
-@app.route("/register-erc20-against-did", methods=["POST"])
+# @app.route("/did", methods=["POST"])
+# def did():
+#     if request.remote_addr not in IP_WHITELIST:
+#         abort(404)
+
+#     payload = request.json
+
+#     if payload.get("DID", None):
+#         if payload.get("address", None):
+#             try:
+#                 # add this address to the database and in the smart contract 
+#                 return jsonify({"status": "success"})
+#             except Exception as e:
+#                 return jsonify({"status": "error", "error": str(e)})
+
+#     return jsonify({"status": "failed", "error": "Invalid Payload"})
+@app.route("/did", methods=["POST"])
 def register_erc20_against_did():
+    print(request.remote_addr)
     if request.remote_addr not in IP_WHITELIST:
         abort(404)
 
     payload = request.json
+    print(f"Received payload: {payload}")  # Log received payload
 
     if payload.get("DID", None):
-        if payload.get("ERC20-_address", None):
+        if payload.get("address", None):
             try:
-                # add this address to the database and in the smart contract 
+                # Add this address to the database and in the smart contract 
                 return jsonify({"status": "success"})
             except Exception as e:
                 return jsonify({"status": "error", "error": str(e)})
 
     return jsonify({"status": "failed", "error": "Invalid Payload"})
-
 
 @app.route("/increment-swap-amount-for-did", methods=["POST"])
 def increment_swap_amount_for_did():

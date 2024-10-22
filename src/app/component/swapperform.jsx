@@ -8,7 +8,7 @@ export default function HomePage() {
   const router = useRouter();
 
   useEffect(() => {
-    console.log("vvvvvvvvvvvvvvvv");
+    // console.log("vvvvvvvvvvvvvvvv");
     // Check for the DID token in localStorage
     const did = typeof window !== 'undefined' ? localStorage.getItem('DID') : null;
     console.log("🚀 ~ useEffect ~ did:", did);
