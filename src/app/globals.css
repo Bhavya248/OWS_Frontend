@@ -1,63 +1,190 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+@import url('https://fonts.googleapis.com/css?family=Roboto:300');
+@import url('https://fonts.googleapis.com/css2?family=Playwrite+CU:wght@100..400&display=swap');
+body {
+  text-align:center;
+  background:linear-gradient(141deg, #ccc 25%, #eee 40%, #ddd 55%);
+  color:#555;
+  font-family:'Roboto';
+  /* font-weight:300; */
+  /* font-size:32px; */
+  /* padding-top:40vh; */
+  height:100vh;
+  overflow:hidden;
+  -webkit-backface-visibility: hidden;
+  -webkit-perspective: 1000;
+  -webkit-transform: translate3d(0,0,0);
+}
+.t{
+  font-family: "Playwrite CU", cursive;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
+
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background: rgb(0,0,0);
+  background: radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(0,9,37,1) 0%, rgba(0,0,0,1) 100%);
+
 }
 
-.nav {
-  background: black;
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 
-.header {
-  display: flex;
-  padding: 20px 30px;
+.b{
+background: #111111;
+border-radius: 10px;
 }
 
-.buttonContainer {
-  width: 100%;
-  display: flex;
-  flex: 1;
-  justify-content: flex-end;
-}
 
-.buttonStyle {
-  
-  outline: none;
-  border: none;
-  font-size: 18px;
-  padding: 10px 70px;
-  border: 1px solid white;
+.c{
+  background: #0f0e0e;
   border-radius: 10px;
-  cursor: pointer;
-
 }
 
-.accountInfo {
-  width: 100%;
-  display: flex;
-  flex: 1;
-  justify-content: flex-end;
-  font-size: 12px;
+.btn {
+  --fancy-button-gradient-0: #8d49fd;
+  --fancy-button-gradient-50: #7f56f3;
+  --fancy-button-gradient-100: #5691f3;
+  --fancy-button-inner-shadow-top: rgba(233, 209, 255, 0.2);
+  --fancy-button-inner-shadow-top-lg: rgba(9, 12, 60, 0.1);
+  --fancy-button-inner-shadow-bottom: rgba(137, 222, 246, 0.3);
+  --fancy-button-shine-top: #e9d1ff;
+  --fancy-button-shine-bottom: #adfff9;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 21px;
+  text-shadow: 0px 0.5px 0.5px rgba(0, 0, 0, 0.2);
+  padding: 0;
+  margin: 0;
+  appearance: none;
+  border: none;
+  outline: none;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  z-index: 1;
+  border-radius: 25px;
+  color: #fff;
+  background-image: linear-gradient(
+    to bottom,
+    var(--fancy-button-gradient-0) 0%,
+    var(--fancy-button-gradient-50) 50%,
+    var(--fancy-button-gradient-100) 100%
+  );
+  box-shadow:
+    0px 4px 12px rgba(9, 12, 60, 0.15),
+    0px 2px 8px rgba(9, 12, 60, 0.15),
+    0px 1px 3px var(--fancy-button-inner-shadow-top-lg),
+    inset 0px 1px 1px var(--fancy-button-inner-shadow-top),
+    inset 0px -1px 3px var(--fancy-button-inner-shadow-bottom);
+}
+
+.btn:before,
+.btn:after {
+  content: "";
+  position: absolute;
+  border-radius: inherit;
+  will-change: transform;
+}
+
+.btn:before {
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--fancy-button-shine-top);
+  width: 96px;
+  height: 6px;
+  top: -3px;
+  opacity: 0.6;
+  filter: blur(6px);
+  transition: opacity 0.25s;
+}
+
+.btn:after {
+  inset: 0;
+  background-size: cover;
+  z-index: 2;
+  opacity: 0.3;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+.btn span {
+  display: block;
+  padding: 8px 15px 8px 5px;
+  border-radius: inherit;
+  overflow: hidden;
+  position: relative;
+  background-image: linear-gradient(
+    to bottom,
+    var(--fancy-button-shine-top),
+    transparent 8px
+  );
+  background-position: 0 -6px;
+  background-repeat: no-repeat;
+  z-index: 1;
+  font-size: 16px;
+}
+
+.btn span:before,
+.btn span:after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background-color: var(--fancy-button-shine-bottom);
+  transition:
+    opacity 0.25s,
+    transform 0.25s;
+  will-change: transform;
+}
+
+.btn span:before {
+  width: 92px;
+  height: 8px;
+  bottom: -4px;
+  opacity: 0.75;
+  filter: blur(6px);
+}
+
+.btn span:after {
+  width: 112px;
+  height: 1px;
+  bottom: 0;
+  opacity: 0.9;
+  filter: blur(1px);
+}
+
+.btn:hover span:before {
+  opacity: 0.8;
+}
+
+.btn:hover span:before {
+  transform: translateX(-50%) scale(1.25);
+}
+
+.btn:hover span:after {
+  opacity: 1;
+}
+
+/* Define the keyframes for the shake animation */
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
+}
+
+/* Apply the shake animation to an element */
+.shake {
+  animation: shake 0.5s ease-in-out;
 }
