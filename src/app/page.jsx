@@ -31,18 +31,17 @@ const Home = () => {
 
   useEffect(() => {
     const loadTokens = async () => {
-      const tokens = await fetchTokenList(); // Fetch the tokens from API
-      setTokensList(tokens); // Set the fetched tokens in state
+      const tokens = await fetchTokenList();
+      setTokensList(tokens);
       console.log(tokens);
     };
 
-    loadTokens(); // Call loadTokens on component mount
+    loadTokens();
   }, []);
 
-  // Fetch DID and authentication on page load
   useEffect(() => {
-    const did = typeof window !== "undefined" ? Cookies.get("RNS") : null;
-    if (!did) {
+    const token = typeof window !== "undefined" ? Cookies.get("token") : null;
+    if (!token) {
       setIsAuthenticated(false);
       router.push("/login");
     } else {
@@ -108,7 +107,9 @@ const Home = () => {
           toast.error(
             "Connected wallet address is not linked with your DID, Disconnecting ....."
           );
-          disconnect();
+          setTimeout(() => {
+            disconnect();
+          }, 1500);
         }
       } catch (error) {
         toast.error("An error occurred while checking the wallet address.");
@@ -125,7 +126,14 @@ const Home = () => {
     setLoading(true);
     try {
       const response = await fetch(
-        `/api/fetch-user-balance/${address}/${token}`
+        `/api/fetch-user-balance/${address}/${token}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${Cookies.get("token")}`,
+            "Content-Type": "application/json",
+          },
+        }
       );
       if (!response.ok) throw new Error("Network response was not ok");
       const data = await response.json();
@@ -225,6 +233,10 @@ const Home = () => {
         `/api/fetch-token-approval/${address}/${selectedToken}`,
         {
           method: "GET",
+          headers: {
+            Authorization: `Bearer ${Cookies.get("token")}`,
+            "Content-Type": "application/json",
+          },
         }
       );
 

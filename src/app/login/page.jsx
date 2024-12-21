@@ -38,9 +38,10 @@ const LoginPage = () => {
       const data = await response.json();
 
       if (data.found && data.can_access) {
-        // Store the server response data in cookies with a 12-hour expiration time
-        const expiration = new Date(new Date().getTime() + 12 * 60 * 60 * 1000);
+        // Store the server response data in cookies with a 6-hour expiration time
+        const expiration = new Date(new Date().getTime() + 6 * 60 * 60 * 1000);
 
+        Cookies.set("token", data.token || "", { expires: expiration });
         Cookies.set("RNS", data.RNS || "", { expires: expiration });
         Cookies.set("username", data.username || "", { expires: expiration });
         Cookies.set("email", data.email || "", { expires: expiration });
@@ -52,17 +53,14 @@ const LoginPage = () => {
           expires: expiration,
         });
 
-        // Show success message and part of the response in toast
         toast.success(
           `Login successful! Welcome, ${data.first_name || data.username}`
         );
 
-        // Redirect after a short delay
-        // setTimeout(() => {
-        router.push("/");
-        // }, 1500);
+        setTimeout(() => {
+          router.push("/");
+        }, 1500);
       } else {
-        // Display the error from the server response
         toast.error(data.error || "Invalid credentials. Please try again.");
       }
     } catch (error) {
